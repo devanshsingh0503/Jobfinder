@@ -7,32 +7,37 @@ import { AiOutlineClose, AiOutlineLogout } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import CustomButton from "./CustomButton";
 import { users } from "../utils/data";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Logout } from "../redux/userSlice";
 
 function MenuList({ user, onClick }) {
-  const handleLogout = () => {};
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(Logout());
+    window.location.replace("/");
+  };
 
   return (
     <div>
-      <Menu as='div' className='inline-block text-left'>
+      <Menu as='div' className='inline-block text-left relative'>
         <div className='flex'>
-          <Menu.Button className='inline-flex gap-2 w-full rounded-md bg-white md:px-4 py-2 text-sm font-medium text-slate-700 hover:bg-opacity-20 '>
-            <div className='leading[80px] flex flex-col items-start'>
-              <p className='text-sm font-semibold '>
+          <Menu.Button className='inline-flex items-center gap-3 w-full rounded-xl bg-white px-3 py-1.5 text-sm font-semibold text-zinc-700 hover:bg-zinc-50 border border-zinc-150 transition-all shadow-sm'>
+            <img
+              src={user?.profileUrl}
+              alt='user profile'
+              className='w-8 h-8 rounded-full object-cover border border-zinc-100'
+            />
+            <div className='leading-none flex flex-col items-start text-left'>
+              <p className='text-xs font-bold text-zinc-800'>
                 {user?.firstName ?? user?.name}
               </p>
-              <span className='text-sm text-blue-600 '>
+              <span className='text-[10px] text-zinc-400 font-medium mt-0.5'>
                 {user?.jobTitle ?? user?.email}
               </span>
             </div>
 
-            <img
-              src={user?.profileUrl}
-              alt='user profile'
-              className='w-10 h-10 rounded-full object-cover '
-            />
             <BiChevronDown
-              className='h-8 w-8 text-slate-600'
+              className='h-4 w-4 text-zinc-400'
               aria-hidden='true'
             />
           </Menu.Button>
@@ -47,8 +52,8 @@ function MenuList({ user, onClick }) {
           leaveFrom='transform opacity-100 scale-100'
           leaveTo='transform opacity-0 scale-95'
         >
-          <Menu.Items className='absolute z-50 right-2 mt-2 w-56 origin-top-right divide-y dividfe-gray-100 rounded-md bg-white shadow-lg focus:outline-none '>
-            <div className='p-1 '>
+          <Menu.Items className='absolute z-50 right-0 mt-2.5 w-52 origin-top-right divide-y divide-zinc-100 rounded-xl bg-white border border-zinc-100 shadow-xl focus:outline-none p-1'>
+            <div className='space-y-0.5'>
               <Menu.Item>
                 {({ active }) => (
                   <Link
@@ -56,17 +61,17 @@ function MenuList({ user, onClick }) {
                       user?.accountType ? "user-profile" : "company-profile"
                     }`}
                     className={`${
-                      active ? "bg-blue-500 text-white" : "text-gray-900"
-                    } group flex w-full items-center rounded-md p-2 text-sm`}
+                      active ? "bg-indigo-50 text-indigo-600" : "text-zinc-700"
+                    } group flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors`}
                     onClick={onClick}
                   >
                     <CgProfile
                       className={`${
-                        active ? "text-white" : "text-gray-600"
-                      } mr-2 h-5 w-5  `}
+                        active ? "text-indigo-600" : "text-zinc-400"
+                      } mr-2.5 h-4 w-4 transition-colors`}
                       aria-hidden='true'
                     />
-                    {user?.accountType ? "User Profile" : "Company Profile"}
+                    {user?.accountType ? "My Profile" : "Company Profile"}
                   </Link>
                 )}
               </Menu.Item>
@@ -76,13 +81,13 @@ function MenuList({ user, onClick }) {
                   <button
                     onClick={() => handleLogout()}
                     className={`${
-                      active ? "bg-blue-500 text-white" : "text-gray-900"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                      active ? "bg-rose-50 text-rose-600" : "text-zinc-700"
+                    } group flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors`}
                   >
                     <AiOutlineLogout
                       className={`${
-                        active ? "text-white" : "text-gray-600"
-                      } mr-2 h-5 w-5  `}
+                        active ? "text-rose-600" : "text-zinc-400"
+                      } mr-2.5 h-4 w-4 transition-colors`}
                       aria-hidden='true'
                     />
                     Log Out
@@ -97,7 +102,7 @@ function MenuList({ user, onClick }) {
   );
 }
 const Navbar = () => {
-  const user = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleCloseNavbar = () => {
@@ -106,26 +111,30 @@ const Navbar = () => {
 
   return (
     <>
-      <div className='relative bg-[#f7fdfd] z-50'>
-        <nav className='container mx-auto flex items-center justify-between p-5'>
+      <header className='sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-zinc-150'>
+        <nav className='container mx-auto flex items-center justify-between p-4 md:px-6'>
           <div>
-            <Link to='/' className='text-purple-600 font-bold text-xl'>
-              Job<span className='text-purple-400'>Finder</span>
+            <Link to='/' className='text-zinc-900 font-extrabold text-xl tracking-tight'>
+              Job<span className='text-indigo-600'>Finder</span>
             </Link>
           </div>
 
-          <ul className='hidden lg:flex text-purple-600 gap-10 text-base'>
+          <ul className='hidden lg:flex text-zinc-600 gap-8 text-sm font-semibold'>
+            {(user?.accountType === "seeker" || !user?.token) && (
+              <li>
+                <Link to='/' className='hover:text-indigo-600 transition-colors'>Find Job</Link>
+              </li>
+            )}
             <li>
-              <Link to='/'>Find Job</Link>
+              <Link to='/companies' className='hover:text-indigo-600 transition-colors'>Companies</Link>
             </li>
+            {user?.token && user?.accountType !== "seeker" && (
+              <li>
+                <Link to='/upload-job' className='hover:text-indigo-600 transition-colors'>Upload Job</Link>
+              </li>
+            )}
             <li>
-              <Link to='/companies'>Companies</Link>
-            </li>
-            <li>
-              <Link to='/upload-job'>Upload Job</Link>
-            </li>
-            <li>
-              <Link to='/about-us'>About</Link>
+              <Link to='/about-us' className='hover:text-indigo-600 transition-colors'>About</Link>
             </li>
           </ul>
 
@@ -134,7 +143,7 @@ const Navbar = () => {
               <Link to='/user-auth'>
                 <CustomButton
                   title='Sign In'
-                  containerStyles='text-purple-600 py-1.5 px-5 focus:outline-none hover:bg-blue-700 hover:text-white rounded-full text-base border border-blue-600'
+                  containerStyles='text-indigo-600 py-2 px-5 hover:bg-indigo-50 hover:border-indigo-200 rounded-xl text-sm font-bold border border-zinc-200 transition-all'
                 />
               </Link>
             ) : (
@@ -145,23 +154,25 @@ const Navbar = () => {
           </div>
 
           <button
-            className='block lg:hidden text-slate-900'
+            className='block lg:hidden text-zinc-800'
             onClick={() => setIsOpen((prev) => !prev)}
           >
-            {isOpen ? <AiOutlineClose size={26} /> : <HiMenuAlt3 size={26} />}
+            {isOpen ? <AiOutlineClose size={24} /> : <HiMenuAlt3 size={24} />}
           </button>
         </nav>
 
         {/* MOBILE MENU */}
         <div
           className={`${
-            isOpen ? "absolute flex bg-[#f7fdfd] " : "hidden"
-          } container mx-auto lg:hidden flex-col pl-8 gap-3 py-5`}
+            isOpen ? "absolute flex bg-white/95 backdrop-blur-md border-b border-zinc-150 " : "hidden"
+          } container mx-auto lg:hidden flex-col pl-8 gap-4 py-6 shadow-lg`}
         >
-          <Link to='/' onClick={handleCloseNavbar}>
-            Find Job
-          </Link>
-          <Link to='/companies' onClick={handleCloseNavbar}>
+          {(user?.accountType === "seeker" || !user?.token) && (
+            <Link to='/' onClick={handleCloseNavbar} className='text-zinc-600 font-bold hover:text-indigo-600 transition-colors'>
+              Find Job
+            </Link>
+          )}
+          <Link to='/companies' onClick={handleCloseNavbar} className='text-zinc-600 font-bold hover:text-indigo-600 transition-colors'>
             Companies
           </Link>
           <Link
@@ -169,19 +180,20 @@ const Navbar = () => {
             to={
               user?.accountType === "seeker" ? "applly-gistory" : "upload-job"
             }
+            className='text-zinc-600 font-bold hover:text-indigo-600 transition-colors'
           >
             {user?.accountType === "seeker" ? "Applications" : "Upload Job"}
           </Link>
-          <Link to='/about-us' onClick={handleCloseNavbar}>
+          <Link to='/about-us' onClick={handleCloseNavbar} className='text-zinc-600 font-bold hover:text-indigo-600 transition-colors'>
             About
           </Link>
 
-          <div className='w-full py-10'>
+          <div className='w-full py-4 border-t border-zinc-100 mt-2'>
             {!user?.token ? (
               <a href='/user-auth'>
                 <CustomButton
                   title='Sign In'
-                  containerStyles={`text-blue-600 py-1.5 px-5 focus:outline-none hover:bg-blue-700 hover:text-white rounded-full text-base border border-blue-600`}
+                  containerStyles={`text-indigo-600 py-2 px-5 hover:bg-indigo-50 rounded-xl text-sm font-bold border border-zinc-200 transition-all`}
                 />
               </a>
             ) : (
@@ -191,7 +203,7 @@ const Navbar = () => {
             )}
           </div>
         </div>
-      </div>
+      </header>
     </>
   );
 };

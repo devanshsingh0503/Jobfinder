@@ -9,6 +9,7 @@ export const updateUser = async (req, res, next) => {
     contact,
     location,
     profileUrl,
+    cvUrl,
     jobTitle,
     about,
   } = req.body;
@@ -31,6 +32,7 @@ export const updateUser = async (req, res, next) => {
       contact,
       location,
       profileUrl,
+      cvUrl,
       jobTitle,
       about,
       _id: id,

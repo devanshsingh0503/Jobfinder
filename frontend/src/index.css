@@ -13,12 +13,14 @@ a {
 
 /* #18171D #212121 */
 li:hover{
-font-weight: 700;
-color: #b80afc;
+  font-weight: 700;
+  color: #6366f1;
 }
 
 body {
   box-sizing: border-box;
+  background-color: #f9fafb;
+  color: #18181b;
 }
 
 .slider {

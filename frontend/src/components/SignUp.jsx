@@ -30,17 +30,17 @@ const SignUp = ({ open, setOpen }) => {
   const closeModal = () => setOpen(false);
 
   const onSubmit = async (data) => {
-    let URL = null
+    let URL = null;
 
     if (isRegister) {
       if (accountType === "seeker") {
         URL = "auth/register";
-      } else URL + "company/register";
+      } else URL = "companies/register";
     } else {
       if (accountType === "seeker") {
         URL = "auth/login";
       } else { 
-        URL = "company/login";
+        URL = "companies/login";
       }
     }
     try {
@@ -92,30 +92,30 @@ const SignUp = ({ open, setOpen }) => {
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all '>
+                <Dialog.Panel className='w-full max-w-md transform overflow-hidden rounded-3xl bg-white border border-zinc-200 p-8 text-left align-middle shadow-2xl transition-all text-zinc-800'>
                   <Dialog.Title
                     as='h3'
-                    className='text-xl font-semibold lwading-6 text-gray-900'
+                    className='text-2xl font-extrabold text-zinc-900'
                   >
                     {isRegister ? "Create Account" : "Account Sign In"}
                   </Dialog.Title>
 
-                  <div className='w-full flex items-center justify-center py-4 '>
+                  <div className='w-full flex items-center justify-center p-1 bg-zinc-50 border border-zinc-200/50 rounded-xl my-4 gap-1'>
                     <button
-                      className={`flex-1 px-4 py-2 rounded text-sm outline-none ${
+                      className={`flex-1 py-2 text-xs font-bold transition-all ${
                         accountType === "seeker"
-                          ? "bg-[#1d4fd862] text-blue-900 font-semibold"
-                          : "bg-white border border-blue-400"
+                          ? "bg-white text-indigo-600 shadow-sm rounded-lg"
+                          : "text-zinc-500 hover:text-zinc-800 hover:bg-zinc-100 rounded-lg"
                       }`}
                       onClick={() => setAccountType("seeker")}
                     >
                       User Account
                     </button>
                     <button
-                      className={`flex-1 px-4 py-2 rounded text-sm outline-none ${
+                      className={`flex-1 py-2 text-xs font-bold transition-all ${
                         accountType !== "seeker"
-                          ? "bg-[#1d4fd862] text-blue-900 font-semibold"
-                          : "bg-white border border-blue-400"
+                          ? "bg-white text-indigo-600 shadow-sm rounded-lg"
+                          : "text-zinc-500 hover:text-zinc-800 hover:bg-zinc-100 rounded-lg"
                       }`}
                       onClick={() => setAccountType("company")}
                     >
@@ -124,7 +124,7 @@ const SignUp = ({ open, setOpen }) => {
                   </div>
 
                   <form
-                    className='w-full flex flex-col gap-5'
+                    className='w-full flex flex-col gap-4'
                     onSubmit={handleSubmit(onSubmit)}
                   >
                     <TextInput
@@ -139,7 +139,7 @@ const SignUp = ({ open, setOpen }) => {
                     />
 
                     {isRegister && (
-                      <div className='w-full flex gap-1 md:gap-2'>
+                      <div className='w-full flex gap-3'>
                         <div
                           className={`${
                             accountType === "seeker" ? "w-1/2" : "w-full"
@@ -157,7 +157,7 @@ const SignUp = ({ open, setOpen }) => {
                             placeholder={
                               accountType === "seeker"
                                 ? "eg. James"
-                                : "Comapy name"
+                                : "Company Name"
                             }
                             type='text'
                             register={register(
@@ -200,7 +200,7 @@ const SignUp = ({ open, setOpen }) => {
                       </div>
                     )}
 
-                    <div className='w-full flex gap-1 md:gap-2'>
+                    <div className='w-full flex gap-3'>
                       <div className={`${isRegister ? "w-1/2" : "w-full"}`}>
                         <TextInput
                           name='password'
@@ -227,7 +227,7 @@ const SignUp = ({ open, setOpen }) => {
                                 const { password } = getValues();
 
                                 if (password != value) {
-                                  return "Passwords do no match";
+                                  return "Passwords do not match";
                                 }
                               },
                             })}
@@ -245,29 +245,29 @@ const SignUp = ({ open, setOpen }) => {
                     {errMsg && (
                       <span
                         role='alert'
-                        className='text-sm text-red-500 mt-0.5'
+                        className='text-xs text-rose-500 mt-1 font-semibold'
                       >
                         {errMsg}
                       </span>
                     )}
 
-                    <div className='mt-2'>
+                    <div className='mt-4'>
                       <CustomButton
                         type='submit'
-                        containerStyles={`inline-flex justify-center rounded-md bg-blue-600 px-8 py-2 text-sm font-medium text-white outline-none hover:bg-blue-800`}
+                        containerStyles={`w-full flex justify-center bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-xl text-sm shadow-sm transition-all focus:outline-none`}
                         title={isRegister ? "Create Account" : "Login Account"}
                       />
                     </div>
                   </form>
 
-                  <div className='mt-4'>
-                    <p className='text-sm text-gray-700'>
+                  <div className='mt-5 pt-4 border-t border-zinc-100 text-center'>
+                    <p className='text-xs text-zinc-500 font-medium'>
                       {isRegister
-                        ? "Already has an account?"
-                        : "Do not have an account"}
+                        ? "Already have an account?"
+                        : "Do not have an account?"}
 
                       <span
-                        className='text-sm text-blue-600 ml-2 hover:text-blue-700 hover:font-semibold cursor-pointer'
+                        className='text-indigo-650 hover:text-indigo-700 font-bold ml-1 cursor-pointer transition-colors'
                         onClick={() => setIsRegister((prev) => !prev)}
                       >
                         {isRegister ? "Login" : "Create Account"}

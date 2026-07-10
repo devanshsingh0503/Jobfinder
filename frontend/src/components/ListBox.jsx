@@ -11,14 +11,14 @@ const ListBox = ({ sort, setSort }) => {
         <div className='relative mt-1'>
           <Listbox.Button
             className={
-              "relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+              "relative w-full cursor-default rounded-xl border border-zinc-200 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 text-sm transition-all duration-200"
             }
           >
-            <span className='block truncate'>{sort}</span>
+            <span className='block truncate text-zinc-800 font-bold'>{sort}</span>
 
             <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
               <BsChevronExpand
-                className='h-5 w-5 text-gray-500'
+                className='h-4 w-4 text-zinc-400'
                 aria-hidden='true'
               />
             </span>
@@ -30,13 +30,13 @@ const ListBox = ({ sort, setSort }) => {
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Listbox.Options className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'>
+            <Listbox.Options className='absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-xl border border-zinc-150 bg-white py-1 text-sm shadow-xl focus:outline-none'>
               {options.map((op, index) => (
                 <Listbox.Option
                   key={index}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? "bg-[#1d4fd830] text-[#1d4ed8]" : "text-gray-900"
+                    `relative cursor-default select-none py-2 pl-10 pr-4 transition-colors ${
+                      active ? "bg-indigo-50 text-indigo-600" : "text-zinc-700"
                     }`
                   }
                   value={op}
@@ -45,14 +45,14 @@ const ListBox = ({ sort, setSort }) => {
                     <>
                       <span
                         className={`block truncate ${
-                          selected ? "font-medium" : "font-normal"
+                          selected ? "font-bold text-indigo-600" : "font-normal"
                         }`}
                       >
                         {op}
                       </span>
                       {selected ? (
-                        <span className='absolute inset-y-0 left-0 flex items-center pl-3 text-[#1d4ed8]'>
-                          <BsCheck2 className='h-5 w-5' aria-hidden='true' />
+                        <span className='absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600'>
+                          <BsCheck2 className='h-4 w-4' aria-hidden='true' />
                         </span>
                       ) : null}
                     </>

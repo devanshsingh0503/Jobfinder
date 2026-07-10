@@ -49,80 +49,78 @@ const FindJobs = () => {
         setLocation={setJobLocation}
       />
 
-      <div className='container mx-auto flex gap-6 2xl:gap-10 md:px-5 py-0 md:py-6 bg-[#f7fdfd]'>
-        <div className='hidden md:flex flex-col w-1/6 h-fit bg-white shadow-sm'>
-          <p className='text-lg font-semibold text-slate-600'>Filter Search</p>
+      <div className='container mx-auto flex gap-8 px-4 md:px-6 py-6 md:py-10 bg-zinc-50/10'>
+        <div className='hidden md:flex flex-col w-1/4 h-fit bg-white border border-zinc-200 rounded-2xl p-6 shadow-sm sticky top-24'>
+          <p className='text-xs font-extrabold uppercase tracking-wider text-zinc-400 mb-6'>Filter Search</p>
 
-          <div className='py-2'>
-            <div className='flex justify-between mb-3'>
-              <p className='flex items-center gap-2 font-semibold'>
-                <BiBriefcaseAlt2 />
+          <div className='pb-4 border-b border-zinc-100'>
+            <div className='flex justify-between items-center mb-4'>
+              <p className='flex items-center gap-2 text-sm font-bold text-zinc-800'>
+                <BiBriefcaseAlt2 className='text-indigo-600 text-lg' />
                 Job Type
               </p>
 
-              <button>
-                <MdOutlineKeyboardArrowDown />
+              <button className='text-zinc-400 hover:text-zinc-600 transition-colors'>
+                <MdOutlineKeyboardArrowDown className='text-lg' />
               </button>
             </div>
 
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-3'>
               {jobTypes.map((jtype, index) => (
-                <div key={index} className='flex gap-2 text-sm md:text-base '>
+                <label key={index} className='flex items-center gap-3 text-xs md:text-sm font-medium text-zinc-600 hover:text-zinc-955 transition-colors cursor-pointer'>
                   <input
                     type='checkbox'
                     value={jtype}
-                    className='w-4 h-4'
+                    className='rounded text-indigo-600 focus:ring-indigo-500 border-zinc-300 w-4 h-4 cursor-pointer transition-all'
                     onChange={(e) => filterJobs(e.target.value)}
                   />
                   <span>{jtype}</span>
-                </div>
+                </label>
               ))}
             </div>
           </div>
 
-          <div className='py-2 mt-4'>
-            <div className='flex justify-between mb-3'>
-              <p className='flex items-center gap-2 font-semibold'>
-                <BsStars />
+          <div className='pt-6'>
+            <div className='flex justify-between items-center mb-4'>
+              <p className='flex items-center gap-2 text-sm font-bold text-zinc-800'>
+                <BsStars className='text-indigo-600 text-lg' />
                 Experience
               </p>
 
-              <button>
-                <MdOutlineKeyboardArrowDown />
+              <button className='text-zinc-400 hover:text-zinc-600 transition-colors'>
+                <MdOutlineKeyboardArrowDown className='text-lg' />
               </button>
             </div>
 
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-3'>
               {experience.map((exp) => (
-                <div key={exp.title} className='flex gap-3'>
+                <label key={exp.title} className='flex items-center gap-3 text-xs md:text-sm font-medium text-zinc-600 hover:text-zinc-955 transition-colors cursor-pointer'>
                   <input
                     type='checkbox'
                     value={exp?.value}
-                    className='w-4 h-4'
+                    className='rounded text-indigo-600 focus:ring-indigo-500 border-zinc-300 w-4 h-4 cursor-pointer transition-all'
                     onChange={(e) => filterExperience(e.target.value)}
                   />
                   <span>{exp.title}</span>
-                </div>
+                </label>
               ))}
             </div>
           </div>
         </div>
 
-        <div className='w-full md:w-5/6 px-5 md:px-0'>
-          <div className='flex items-center justify-between mb-4'>
-            <p className='text-sm md:text-base'>
-              Shwoing: <span className='font-semibold'>1,902</span> Jobs
-              Available
+        <div className='w-full md:w-3/4'>
+          <div className='flex items-center justify-between mb-6 pb-4 border-b border-zinc-150'>
+            <p className='text-xs md:text-sm text-zinc-500 font-medium'>
+              Showing: <span className='font-bold text-zinc-800'>1,902</span> Jobs Available
             </p>
 
-            <div className='flex flex-col md:flex-row gap-0 md:gap-2 md:items-center'>
-              <p className='text-sm md:text-base'>Sort By:</p>
-
+            <div className='flex items-center gap-3'>
+              <span className='text-[10px] md:text-xs font-bold uppercase tracking-wider text-zinc-400'>Sort By:</span>
               <ListBox sort={sort} setSort={setSort} />
             </div>
           </div>
 
-          <div className='w-full flex flex-wrap gap-4'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full'>
             {jobs.map((job, index) => (
               <JobCard job={job} key={index} />
             ))}
@@ -132,7 +130,7 @@ const FindJobs = () => {
             <div className='w-full flex items-center justify-center pt-16'>
               <CustomButton
                 title='Load More'
-                containerStyles={`text-blue-600 py-1.5 px-5 focus:outline-none hover:bg-blue-700 hover:text-white rounded-full text-base border border-blue-600`}
+                containerStyles={`bg-white text-zinc-700 hover:bg-zinc-50 border border-zinc-200 hover:border-zinc-300 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm focus:outline-none`}
               />
             </div>
           )}

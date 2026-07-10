@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'http://localhost:8080/api-v1';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api-v1';
 
 export const API = axios.create({
     baseURL: API_URL,
@@ -19,9 +19,9 @@ export const apiRequest = async({url, token, data, method}) => {
 
         return result.data;
     } catch (error) {
-        const err = error.response.data;
+        const err = error.response?.data || { success: "failed", message: error.message };
         console.log(err);
-        return { status: err.sucess, message: err.message};
+        return { status: err.success || err.sucess, message: err.message };
     }
 };
 

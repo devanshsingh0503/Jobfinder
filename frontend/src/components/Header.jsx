@@ -13,21 +13,23 @@ const SearchInput = ({ placeholder, icon, value, setValue, styles }) => {
   const clearInput = () => setValue("");
 
   return (
-    <div className={`flex w-full md:w-1/3 items-center ${styles}`}>
+    <div className={`flex w-full items-center gap-2 ${styles}`}>
       {icon}
 
       <input
         value={value}
         onChange={(e) => handleChange(e)}
         type='text'
-        className='w-full md:w-64 p-2 outline-none bg-transparent text-base'
+        className='w-full p-2.5 text-sm bg-transparent outline-none text-zinc-750 placeholder-zinc-400 font-medium'
         placeholder={placeholder}
       />
 
-      <AiOutlineCloseCircle
-        className='hidden md:flex text-gray-600 text-xl cursor-pointer'
-        onClick={clearInput}
-      />
+      {value && (
+        <AiOutlineCloseCircle
+          className='hidden md:flex text-zinc-400 hover:text-zinc-600 text-lg cursor-pointer transition-colors mr-2'
+          onClick={clearInput}
+        />
+      )}
     </div>
   );
 };
@@ -42,30 +44,34 @@ const Header = ({
   setLocation,
 }) => {
   return (
-    <div className='bg-[#f7fdfd]'>
+    <div className='bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-50/60 via-zinc-50/50 to-white border-b border-zinc-100'>
       <div
         className={`container mx-auto px-5 ${
-          type ? "h-[500px]" : "h-[350px]"
+          type ? "h-[520px]" : "h-[360px]"
         } flex items-center relative`}
       >
-        <div className='w-full z-10'>
-          <div className='mb-8'>
-            <p className='text-slate-700 font-bold text-4xl'>{title}</p>
+        <div className='w-full lg:w-2/3 z-10'>
+          <div className='mb-8 max-w-2xl'>
+            <h1 className='text-zinc-900 font-extrabold text-4xl md:text-5xl tracking-tight leading-tight md:leading-none'>
+              {title}
+            </h1>
           </div>
 
-          <div className='w-full flex items-center justify-around bg-white px-2 md:px-5 py-2.5 md:py-6 shadow-2xl rounded-full'>
+          <div className='w-full flex items-center justify-between bg-white border border-zinc-200 p-2 shadow-lg rounded-2xl md:rounded-3xl gap-2 md:gap-4'>
             <SearchInput
               placeholder='Job Title or Keywords'
-              icon={<AiOutlineSearch className='text-gray-600 text-xl' />}
+              icon={<AiOutlineSearch className='text-zinc-400 text-xl ml-2' />}
               value={searchQuery}
               setValue={setSearchQuery}
+              styles='flex-1'
             />
+            <div className='h-8 w-[1px] bg-zinc-200 hidden md:block'></div>
             <SearchInput
               placeholder='Add Country or City'
-              icon={<CiLocationOn className='text-gray-600 text-xl' />}
+              icon={<CiLocationOn className='text-zinc-400 text-xl ml-2' />}
               value={location}
               setValue={setLocation}
-              styles={"hidden md:flex"}
+              styles={"hidden md:flex flex-1"}
             />
 
             <div>
@@ -73,18 +79,19 @@ const Header = ({
                 onClick={handleClick}
                 title='Search'
                 containerStyles={
-                  "text-white py-2 md:py3 px-3 md:px-10 focus:outline-none bg-purple-600 rounded-full md:rounded-md text-sm md:text-base"
+                  "text-white font-bold py-2.5 md:py-3.5 px-6 md:px-10 focus:outline-none bg-indigo-600 hover:bg-indigo-700 transition-colors rounded-xl md:rounded-2xl text-sm md:text-base shadow-sm"
                 }
               />
             </div>
           </div>
 
           {type && (
-            <div className='w-full lg:1/2 flex flex-wrap gap-3 md:gap-6 py-10 md:py-14'>
+            <div className='w-full flex flex-wrap gap-2 md:gap-3 py-8 md:py-10 items-center'>
+              <span className='text-xs text-zinc-400 font-semibold uppercase tracking-wider mr-2'>Popular:</span>
               {popularSearch.map((search, index) => (
                 <span
                   key={index}
-                  className='bg-[#1d4fd826] text-[#1d4ed8] py-1 px-2 rounded-full text-sm md:text-base'
+                  className='bg-indigo-50/60 hover:bg-indigo-55 text-indigo-600 py-1.5 px-4 rounded-full text-xs font-bold transition-all cursor-pointer'
                 >
                   {search}
                 </span>
@@ -93,8 +100,8 @@ const Header = ({
           )}
         </div>
 
-        <div className='w-1/3 h-full absolute top-24 md:-top-2 lg:-top-14 right-16 2xl:right-[18rem]'>
-          <img src={HeroImage} className='object-contain' />
+        <div className='hidden lg:block w-1/3 h-[90%] absolute bottom-0 right-16 2xl:right-[18rem]'>
+          <img src={HeroImage} className='w-full h-full object-contain' />
         </div>
       </div>
     </div>

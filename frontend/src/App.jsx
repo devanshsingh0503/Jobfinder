@@ -27,7 +27,7 @@ function Layout() {
 function App() {
   const { user } = useSelector((state) => state.user);
   return (
-    <main className='bg-[#f7fdfd]'>
+    <main className='bg-zinc-50/50 min-h-screen'>
       <Navbar />
 
       <Routes>
@@ -40,7 +40,7 @@ function App() {
           <Route path='/companies' element={<Companies />} />
           <Route
             path={
-              user?.user?.accountType === "seeker"
+              user?.accountType === "seeker"
                 ? "/user-profile"
                 : "/user-profile/:id"
             }

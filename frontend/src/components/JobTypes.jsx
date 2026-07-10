@@ -9,11 +9,11 @@ export default function JobTypes({ jobTitle, setJobTitle }) {
     <div className='w-full '>
       <Listbox value={jobTitle} onChange={setJobTitle}>
         <div className='relative'>
-          <Listbox.Button className='relative w-full cursor-default rounded bg-white py-2.5 pl-3 pr-10 text-left focus:outline-none border border-gray-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500  sm:text-sm'>
+          <Listbox.Button className='relative w-full cursor-default rounded-xl bg-white py-2.5 pl-3 pr-10 text-left focus:outline-none border border-zinc-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 sm:text-sm text-zinc-800 font-semibold transition-all duration-200'>
             <span className='block truncate'>{jobTitle}</span>
             <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
               <BsChevronExpand
-                className='h-5 w-5 text-gray-500'
+                className='h-4 w-4 text-zinc-400'
                 aria-hidden='true'
               />
             </span>
@@ -24,13 +24,13 @@ export default function JobTypes({ jobTitle, setJobTitle }) {
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <Listbox.Options className='absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'>
+            <Listbox.Options className='absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-xl bg-white py-1 text-sm shadow-xl border border-zinc-150 focus:outline-none'>
               {types.map((type, index) => (
                 <Listbox.Option
                   key={index}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? "bg-amber-100 text-amber-900" : "text-gray-900"
+                    `relative cursor-default select-none py-2 pl-10 pr-4 transition-colors ${
+                      active ? "bg-indigo-50 text-indigo-600" : "text-zinc-700"
                     }`
                   }
                   value={type}
@@ -39,14 +39,14 @@ export default function JobTypes({ jobTitle, setJobTitle }) {
                     <>
                       <span
                         className={`block truncate ${
-                          selected ? "font-medium" : "font-normal"
+                          selected ? "font-bold text-indigo-600" : "font-normal"
                         }`}
                       >
                         {type}
                       </span>
                       {selected ? (
-                        <span className='absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600'>
-                          <BsCheck2 className='h-5 w-5' aria-hidden='true' />
+                        <span className='absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600'>
+                          <BsCheck2 className='h-4 w-4' aria-hidden='true' />
                         </span>
                       ) : null}
                     </>

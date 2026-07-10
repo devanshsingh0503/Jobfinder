@@ -30,45 +30,43 @@ const Companies = () => {
         setLocation={setSearchQuery}
       />
 
-      <div className='container mx-auto flex flex-col gap-5 2xl:gap-10 px-5 md:px-0 py-6 bg-[#f7fdfd]'>
-        <div className='flex items-center justify-between mb-4'>
-          <p className='text-sm md:text-base'>
-            Shwoing: <span className='font-semibold'>1,902</span> Companies
-            Available
+      <div className='container mx-auto flex flex-col gap-6 px-4 md:px-6 py-8 md:py-12 bg-zinc-50/10'>
+        <div className='flex items-center justify-between pb-4 border-b border-zinc-150'>
+          <p className='text-xs md:text-sm text-zinc-500 font-medium'>
+            Showing: <span className='font-bold text-zinc-800'>1,902</span> Companies Available
           </p>
 
-          <div className='flex flex-col md:flex-row gap-0 md:gap-2 md:items-center'>
-            <p className='text-sm md:text-base'>Sort By:</p>
-
+          <div className='flex items-center gap-3'>
+            <span className='text-[10px] md:text-xs font-bold uppercase tracking-wider text-zinc-400'>Sort By:</span>
             <ListBox sort={sort} setSort={setSort} />
           </div>
         </div>
 
-        <div className='w-full flex flex-col gap-6'>
+        <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 w-full'>
           {data?.map((cmp, index) => (
             <CompanyCard cmp={cmp} key={index} />
           ))}
 
           {isFetching && (
-            <div className='mt-10'>
+            <div className='col-span-full py-10 flex justify-center'>
               <Loading />
             </div>
           )}
-
-          <p className='text-sm text-right'>
-            {data?.length} records out of {recordsCount}
-          </p>
         </div>
 
-        {numPage > page && !isFetching && (
-          <div className='w-full flex items-center justify-center pt-16'>
+        <div className='flex justify-between items-center border-t border-zinc-150 pt-6 mt-4'>
+          <p className='text-xs font-semibold text-zinc-400'>
+            Showing {data?.length} records out of {recordsCount}
+          </p>
+
+          {numPage > page && !isFetching && (
             <CustomButton
               onClick={handleShowMore}
               title='Load More'
-              containerStyles={`text-blue-600 py-1.5 px-5 focus:outline-none hover:bg-blue-700 hover:text-white rounded-full text-base border border-blue-600`}
+              containerStyles={`bg-white text-zinc-700 hover:bg-zinc-50 border border-zinc-200 hover:border-zinc-300 px-6 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm focus:outline-none`}
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );
